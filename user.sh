@@ -2,6 +2,7 @@
 set -e
 USERID=${USERID:-1000}
 GROUPID=${GROUPID:-1000}
-groupadd -g ${GROUPID} weechat
-useradd -m -u ${USERID} -g ${GROUPID} weechat
-gosu ${USERID}:${GROUPID} ${USERNAME} /opt/weechat/bin/weechat
+USERNAME=${USERNAME:-weechat}
+groupadd -g ${GROUPID} ${USERNAME}
+useradd -m -u ${USERID} -g ${GROUPID} ${USERNAME}
+gosu ${USERID}:${GROUPID} /opt/weechat/bin/weechat

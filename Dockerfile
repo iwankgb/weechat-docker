@@ -16,14 +16,19 @@ RUN make install
 USER weechat
 
 
+FROM golang:1 AS gosu
+
+RUN go get github.com/tianon/gosu
+
+
 FROM fedora:28
 
 ENV LANG=en_GB.utf8
 RUN dnf update -y && dnf install -y libcurl zlib libgcrypt gettext gnutls ca-certificates aspell python ncurses
-RUN adduser -m weechat
-WORKDIR /home/weechat
+
+COPY --from=gosu /go/bin/gosu /bin/gosu
 COPY --from=build_env /opt/weechat /opt/weechat
+COPY user.sh /root/user.sh
 
 CMD /opt/weechat/bin/weechat
-
-USER weechat
+ENTRYPOINT /root/user.sh

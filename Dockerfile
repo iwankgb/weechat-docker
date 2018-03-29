@@ -1,6 +1,6 @@
 FROM fedora:28 AS build_env
 
-RUN dnf update -y && dnf install -y @development-tools xz cmake libcurl-devel zlib-devel libgcrypt-devel gettext-devel gnutls-devel ca-certificates aspell asciidoctor python-dev ncurses-devel
+RUN dnf update -y && dnf install -y @development-tools xz cmake libcurl-devel zlib-devel libgcrypt-devel gettext-devel gnutls-devel ca-certificates aspell asciidoctor python-devel ncurses-devel
 RUN adduser -m weechat
 
 USER weechat

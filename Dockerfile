@@ -1,14 +1,14 @@
-FROM fedora:28 AS build_env
+FROM fedora:30 AS build_env
 
 RUN dnf update -y && dnf install -y @development-tools xz cmake libcurl-devel zlib-devel libgcrypt-devel gettext-devel gnutls-devel ca-certificates aspell asciidoctor python-devel ncurses-devel
 RUN adduser -m weechat
 
 USER weechat
 WORKDIR /home/weechat
-RUN curl -o weechat-2.1.tar.xz https://weechat.org/files/src/weechat-2.1.tar.xz
-RUN tar xf weechat-2.1.tar.xz
-RUN mkdir weechat-2.1/build
-WORKDIR weechat-2.1/build
+RUN curl -o weechat-2.4.tar.xz https://weechat.org/files/src/weechat-2.4.tar.xz
+RUN tar xf weechat-2.4.tar.xz
+RUN mkdir weechat-2.4/build
+WORKDIR weechat-2.4/build
 RUN cmake -DCMAKE_INSTALL_PREFIX=/opt/weechat ..
 RUN make
 USER root
@@ -21,7 +21,7 @@ FROM golang:1 AS gosu
 RUN go get github.com/tianon/gosu
 
 
-FROM fedora:28
+FROM fedora:30
 
 ENV LANG=en_GB.utf8
 RUN dnf update -y && dnf install -y libcurl zlib libgcrypt gettext gnutls ca-certificates aspell python ncurses
